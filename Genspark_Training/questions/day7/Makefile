@@ -15,5 +15,5 @@ golangci: vet
 	golangci-lint run
 .PHONY:golangci
 build: golangci
-	go build -o ./hello.exe ./main.go
+	go build -o ./interface.exe ./main.go
 .PHONY:build

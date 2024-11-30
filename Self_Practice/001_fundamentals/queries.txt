@@ -1,0 +1,3 @@
+What is uintptr?
+What is and not &^ operatror?
+How to do this for float? You also have the option to write them in hexadecimal by using the 0x prefix and the letter p for indicating any exponent.
