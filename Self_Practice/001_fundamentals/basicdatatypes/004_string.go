@@ -1,6 +1,9 @@
 package basicdatatypes
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 // strings are not collection/sequence of runes instead they are made up of bytes
 //These byte don’t have to be in any particular character encoding, but several Go library functions (and the for-range loop that we discuss in the next chapter) assume that
@@ -16,6 +19,9 @@ func TestString() {
 	fmt.Println(len(stringOne))
 	fmt.Println(len(stringTwo))        // raw string treats 4 characters as 1 tab character
 	fmt.Println(stringOne + stringTwo) //concatenation
+
+	var exit = strings.Contains("Walk outside", "outside")
+	fmt.Println(exit)
 }
 
 // StringSlicing slicing and indexing works well in strings. Since strings are immutable, they don’t have the modification problems that slices of slices do. There is a different problem, though.

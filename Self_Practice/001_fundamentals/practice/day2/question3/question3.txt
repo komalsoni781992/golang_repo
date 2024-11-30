@@ -1,0 +1,18 @@
+q3. create two files in the package main as shown below
+
+     third-proj-day-2/
+        ├──cmd/
+        │  └── main.go
+        │  └──setup.go
+        ├── auth/
+        │  └── auth.go (it has one function which prints authenticating user)
+        ├── go.mod
+
+     ** Use go run to run this project **
+     To run the project
+     cd cmd
+     go run . or go run *.go
+
+     setup.go and main.go both belong to package main
+     Setup.go -> print some setup messages
+     main.go -> call setup function, call auth.Authenticate, and print "end of the main"

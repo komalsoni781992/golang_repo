@@ -95,3 +95,21 @@ func MapAsSetWithStruct() {
 		fmt.Println("5 is in the set")
 	}
 }
+
+// MapOfMaps - function storing map of maps
+func MapOfMaps() {
+	elements := map[string]map[string]string{
+		"H": map[string]string{
+			"name":  "Hydrogen",
+			"state": "gas",
+		},
+		"He": map[string]string{
+			"name":  "Helium",
+			"state": "gas",
+		}}
+	if val, ok := elements["H"]; ok {
+		for k, v := range val {
+			fmt.Println(k, v)
+		}
+	}
+}

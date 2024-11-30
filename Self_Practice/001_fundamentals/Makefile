@@ -11,7 +11,10 @@ lint: imports
 vet: lint
 	go vet ./...
 .PHONY:vet
-golangci: vet
+shadow: vet
+	shadow ./...
+.PHONY:shadow
+golangci: shadow
 	golangci-lint run
 .PHONY:golangci
 build: golangci
