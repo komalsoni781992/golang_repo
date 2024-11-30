@@ -32,4 +32,6 @@ go install golang.org/x/tools/cmd/godoc@latest
 	go doc fmt.Printf
 go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 	golangci-lint run
+go install golang.org/x/tools/go/analysis/passes/shadow/cmd/shadow@latest
+	shadow ./...
 make
