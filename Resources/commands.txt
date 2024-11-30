@@ -1,0 +1,35 @@
+git clone https://github.com/komalsoni781992/golang_repo.git
+git branch
+git branch -a
+git checkout -b staging
+git branch -a
+git status
+git add -f .\Golang_Curriculum_Updated-Version__Sheet2_.xlsx
+git commit -m "Adding the excel sheet"
+git push origin staging
+
+
+//Install Go
+//Install VSCode
+/install go extension
+//view -> command pallete -> go install tools (install everything)
+go version
+go env
+go help
+go build -o ./hello.exe ./hello_world/001_hello_world.go
+go run .
+go mod tidy
+go mod init modulename
+go install github.com/rakyll/hey@latest
+	hey https://www.golang.org
+go install golang.org/x/tools/cmd/goimports@latest
+	goimports -l -w .
+go install golang.org/x/lint/golint@latest
+	golint ./...
+	go vet ./...
+	go fmt ./...
+go install golang.org/x/tools/cmd/godoc@latest
+	go doc fmt.Printf
+go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+	golangci-lint run
+make
