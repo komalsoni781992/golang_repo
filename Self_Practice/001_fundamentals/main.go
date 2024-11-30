@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	compositedatatypes.MakeIntroduction()
+	compositedatatypes.TestTypeConversionInAnonymousStruct()
 }

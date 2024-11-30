@@ -1,3 +1,39 @@
-What is uintptr?
-What is and not &^ operatror?
-How to do this for float? You also have the option to write them in hexadecimal by using the 0x prefix and the letter p for indicating any exponent.
+1.) What is uintptr?
+2.) What is and not &^ operatror?
+3.) How to do this for float? You also have the option to write them in hexadecimal by using the 0x prefix and the letter p for indicating any exponent.
+4.) Explain why intSet[v] = struct{}{} in following code?
+    func MapAsSetWithStruct() {
+        intSet := map[int]struct{}{}
+        vals := []int{5, 10, 2, 5, 8, 7, 3, 9, 1, 2, 10}
+        for _, v := range vals {
+            intSet[v] = struct{}{}
+        }
+        if _, ok := intSet[5]; ok {
+            fmt.Println("5 is in the set")
+        }
+    }
+5.)Book says f and s can be typecasted butg not compared. Not working in compile time?:
+    type firstPerson struct {
+		name string
+		age  int
+	}
+	type secondPerson struct {
+		name string
+		age  int
+	}
+	f := firstPerson{
+		age:  30,
+		name: "Soni",
+	}
+	s := secondPerson{
+		age:  30,
+		name: "Komal",
+	}
+	//f = s
+6.) g := struct {
+		name string
+		age  int
+	}{
+		name: "Fido",
+		age:  20,
+	} works fine. Why not?
