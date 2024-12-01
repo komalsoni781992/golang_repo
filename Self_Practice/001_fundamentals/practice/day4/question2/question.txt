@@ -1,0 +1,1 @@
+q2. Create a function that converts a string to float64, if it is successful it returns the value otherwise an error
