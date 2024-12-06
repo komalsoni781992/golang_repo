@@ -13,6 +13,7 @@ func main() {
 	}
 }
 
+// ParseStringToFloat64 - parese string to float64
 func ParseStringToFloat64(s string) (float64, error) {
 	return strconv.ParseFloat(s, 64)
 }

@@ -8,15 +8,16 @@ import (
 )
 
 func main() {
-	mysqlConnection := mysql.NewMySqlConnection("MySql")
+	mysqlConnection := mysql.NewMySQLConnection("MySql")
 	postgresConnection := postgres.NewPostgresConnection("Postgres")
 	TestDBMethods((mysqlConnection))
 	TestDBMethods((postgresConnection))
 }
 
+// TestDBMethods - tests db methods
 func TestDBMethods(r stores.DBConnection) {
-	user := stores.User{Name: "Komal", Email: "soni.komal@gmail.com", Id: 7}
-	user2 := stores.User{Name: "Soni", Email: "soni.komal@gmail.com", Id: 1}
+	user := stores.User{Name: "Komal", Email: "soni.komal@gmail.com", ID: 7}
+	user2 := stores.User{Name: "Soni", Email: "soni.komal@gmail.com", ID: 1}
 	err := r.Create(user)
 	if err == nil {
 		fmt.Println("User created successfully.")

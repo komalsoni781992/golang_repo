@@ -23,6 +23,7 @@ func TestArrayInitialization() {
 	for index, value := range sparseArray {
 		fmt.Println(index, "value", value)
 	}
+	fmt.Println(len(sparseArray))
 }
 
 // TestMatrix - tests matrix in Go
@@ -30,8 +31,8 @@ func TestMatrix() {
 	var matrix [2][3]int
 	fmt.Println(matrix)
 	// matrix[0] = 20 - Invalid
-	//matrix[0] = int[3]{1, 2, 3} - Invalid
 	//An out-of bounds read or write with a variable index compiles but fails at runtime with a panic
+	matrix[0] = [3]int{4, 5, 6}
 	matrix[0][0] = 50
 	fmt.Println(matrix)
 	fmt.Println(len(matrix))

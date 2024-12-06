@@ -16,28 +16,33 @@ In mysql.go create a Conn struct which stores db connection in string form
 	In postgres.go repeat the same steps as we did in mysql.go
 */
 
-type MySqlConn struct {
+// MySQLConn - connection for MySQL
+type MySQLConn struct {
 	dbConnection string
 }
 
-func NewMySqlConnection(conn string) MySqlConn {
+// NewMySQLConnection - creates new Mysql connection
+func NewMySQLConnection(conn string) MySQLConn {
 	if conn == "" {
 		log.Fatal("empty connection string")
 	}
-	return MySqlConn{dbConnection: conn}
+	return MySQLConn{dbConnection: conn}
 }
 
-func (c MySqlConn) Create(u stores.User) error {
+// Create - creates user
+func (c MySQLConn) Create(u stores.User) error {
 	fmt.Println("Creating user: ", u, " over connection", c)
 	return nil
 }
 
-func (c MySqlConn) Update(u stores.User) error {
+// Update - updates user
+func (c MySQLConn) Update(u stores.User) error {
 	fmt.Println("Updating user: ", u, " over connection", c)
 	return nil
 }
 
-func (c MySqlConn) Delete(id int) error {
+// Delete - deletes user
+func (c MySQLConn) Delete(id int) error {
 	fmt.Println("Deleting user with id: ", id, " over connection", c)
 	return nil
 }

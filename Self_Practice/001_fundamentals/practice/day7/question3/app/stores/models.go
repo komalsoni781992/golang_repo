@@ -2,10 +2,11 @@ package stores
 
 import "fmt"
 
+// User - struct with name, email and id
 type User struct {
 	Name  string
 	Email string
-	Id    int
+	ID    int
 }
 
 // Write implements io.Writer.

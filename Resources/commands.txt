@@ -1,3 +1,4 @@
+git config --global user.name "komalsoni781992"
 git clone https://github.com/komalsoni781992/golang_repo.git
 git branch
 git branch -a
@@ -8,8 +9,7 @@ git add -f .\Golang_Curriculum_Updated-Version__Sheet2_.xlsx
 git commit -m "Adding the excel sheet"
 git push origin staging
 
-
-//Install Go
+choco install golang //Install Go
 //Install VSCode
 /install go extension
 //view -> command pallete -> go install tools (install everything)

@@ -16,39 +16,44 @@ In mysql.go create a Conn struct which stores db connection in string form
 	In postgres.go repeat the same steps as we did in mysql.go
 */
 
-type MySqlConn struct {
+// MySQLConn - connection for MySQL
+type MySQLConn struct {
 	dbConnection string
 	mysqlMap     stores.Users
 }
 
-func NewMySqlConnection(conn string) MySqlConn {
+// NewMySQLConnection - creates new Mysql connection
+func NewMySQLConnection(conn string) MySQLConn {
 	if conn == "" {
 		log.Fatal("empty connection string")
 	}
-	return MySqlConn{dbConnection: conn, mysqlMap: make(stores.Users, 1)}
+	return MySQLConn{dbConnection: conn, mysqlMap: make(stores.Users, 1)}
 }
 
-func (c MySqlConn) Create(u stores.User) bool {
+// Create - creates user
+func (c MySQLConn) Create(u stores.User) bool {
 	fmt.Println("Creating user: ", u, " over connection", c)
-	_, ok := c.mysqlMap[u.Id] // user, ok (true,false) if that value exist or not
+	_, ok := c.mysqlMap[u.ID] // user, ok (true,false) if that value exist or not
 	if !ok {
-		c.mysqlMap[u.Id] = &u
+		c.mysqlMap[u.ID] = &u
 		return true
 	}
 	return false
 }
 
-func (c MySqlConn) Update(u stores.User) bool {
+// Update - updates user
+func (c MySQLConn) Update(u stores.User) bool {
 	fmt.Println("Updating user: ", u, " over connection", c)
-	_, ok := c.mysqlMap[u.Id] // user, ok (true,false) if that value exist or not
+	_, ok := c.mysqlMap[u.ID] // user, ok (true,false) if that value exist or not
 	if ok {
-		c.mysqlMap[u.Id] = &u
+		c.mysqlMap[u.ID] = &u
 		return true
 	}
 	return false
 }
 
-func (c MySqlConn) Delete(id int) bool {
+// Delete - deletes user
+func (c MySQLConn) Delete(id int) bool {
 	fmt.Println("Deleting user with id: ", id, " over connection", c)
 	_, ok := c.mysqlMap[id] // user, ok (true,false) if that value exist or not
 	if ok {
@@ -58,13 +63,15 @@ func (c MySqlConn) Delete(id int) bool {
 	return false
 }
 
-func (c MySqlConn) FetchAll() {
+// FetchAll - fetches all users
+func (c MySQLConn) FetchAll() {
 	for key, value := range c.mysqlMap {
 		fmt.Println(key, value)
 	}
 }
 
-func (c MySqlConn) FetchUser(id int) *stores.User {
+// FetchUser - fetch usr by ID
+func (c MySQLConn) FetchUser(id int) *stores.User {
 	user, ok := c.mysqlMap[id]
 	if ok {
 		return user

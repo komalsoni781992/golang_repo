@@ -10,6 +10,7 @@ import "fmt"
 
   Create a function that would accept the Books field, not the struct and append some more books*/
 
+// Author - Author type with name and list of books
 type Author struct {
 	name  string
 	books []string

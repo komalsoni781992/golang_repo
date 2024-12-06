@@ -2,6 +2,7 @@ package main
 
 import "fmt"
 
+// Book - book type with title author and pages
 type Book struct {
 	Title  string
 	Author string
@@ -27,6 +28,7 @@ func main() {
 	fmt.Println(b.Author, b.Title, b.Pages)
 }
 
+// Read - subtrct pages from bookcount
 func Read(b *Book, pages int) {
 	if b.Pages > pages {
 		b.Pages -= pages
