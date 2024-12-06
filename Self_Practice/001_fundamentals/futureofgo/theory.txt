@@ -1,0 +1,90 @@
+The first change since Go 1.0 was was the adoption of the context in Go 1.7 followed by the adoption of modules in Go 1.11 and error wrapping in Go 1.13.
+The next big change is coming soon. The Go team has released a draft design for type parameters, which is colloquially referred to as generics. It is expected to be included in Go 1.18. 
+
+Built-in types (maps, slices,channels) and functions (such as len, cap, or make) are able to accept values of different types and return values of different types, 
+but user-defined Go types and functions cannot.
+The case for generics on types is easy to understand. In “Code Your Methods for
+nil Instances”, we looked at a binary tree for ints. If we wanted a binary tree
+for strings or float64s and we wanted type-safety, we would have to write a
+custom tree for each type. That’s verbose and error-prone. It would be nice to
+write a single data structure that could handle any type that can be compared
+with a <, but Go doesn’t let you do that today.
+We can create a tree that works with an interface that specifies a way to order
+values:
+type Orderable interface {
+// Order returns a value < 0 when the Orderable is less than
+the supplied value,
+// a value > 0 when the Orderable is greater than the supplied
+value,
+// and 0 when the two values are equal.
+Order(interface{}) int
+}
+Now that we have Orderable, we can insert any type that has an Order
+method into our Tree:
+type Tree struct {
+val Orderable
+left, right *Tree
+}
+func (t *Tree) Insert(val Orderable) *Tree {
+if t == nil {
+return &Tree{val: val}
+}
+switch comp := val.Order(t.val); {
+case comp < 0:
+t.left = t.left.Insert(val)
+case comp > 0:
+t.right = t.right.Insert(val)
+}
+return t
+}
+With an OrderableInt type, we can then insert int values:
+type OrderableInt int
+func (oi OrderableInt) Order(val interface{}) int {
+return int(oi - val.(OrderableInt))
+}
+func main() {
+var it *Tree
+it = it.Insert(OrderableInt(5))
+it = it.Insert(OrderableInt(3))
+// etc...
+}
+While the Orderable interface allows us to order our values, it doesn’t allow
+the compiler to validate that the values inserted into our data structure are all the
+same. If we also had an OrderableString type:
+type OrderableString string
+func (os OrderableString) Order(val interface{}) int {
+return strings.Compare(string(os), val.(string))
+}
+The following code compiles:
+var it *Tree
+it = it.Insert(OrderableInt(5))
+it = it.Insert(OrderableString("nope"))
+The Order function uses interface{} to represent the value that’s passed
+in. This effectively short-circuits one of Go’s primary advantages, compile-time
+type safety checking. When we compile code that attempts to insert an
+OrderableString into a Tree that already contains an OrderableInt,
+the compiler accepts the code. However, it panics when run:
+panic: interface conversion: interface {} is main.OrderableInt, not
+string
+While data structures without generics are inconvenient, the real limitation is
+writing functions. Rather than write multiple functions to handle different
+numeric types, functions like math.Max, math.Min, and math.Mod are
+implemented using float64 parameters, which has a range big enough to
+represent nearly every other numeric type exactly. (The exceptions are an int,
+int64, or uint with a value greater than 2 - 1 or less than -2 - 1.) You also
+cannot create a new instance of a variable that’s specified by interface, nor can
+you specify that two parameters that are of the same interface type are also of the
+same concrete type. Go also doesn’t provide a way to process a slice of any type;
+you cannot assign a []string or []int to a variable of []interface{}.
+This means functions that operate on slices have to be repeated for each type of
+slice, unless you resort to reflection and give up some performance along with
+compile-time type safety (this is how sort.Slice works).
+In 2017, I wrote a blog post called Closures are the Generics of Go that explored
+using closures to work around some of these issues. However, the closure
+approach has several drawbacks. It is far less readable, forces values to escape to
+the heap, and simply doesn’t work in many common situations.
+The result is that many common algorithms, such as map, reduce, and filter, end
+up being reimplemented for different types. While simple algorithms are easy
+enough to copy, many (if not most) software engineers find it grating to
+duplicate code simply because the compiler isn’t smart enough to do it
+automatically.

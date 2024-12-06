@@ -2,13 +2,12 @@ package main
 
 import (
 	"fmt"
-	"fundamentals/controlstructures"
-	"time"
+	"fundamentals/compositedatatypes"
+	"fundamentals/functionsintro"
 )
 
 func main() {
-	//basicdatatypes.TestString()
-	fmt.Println(controlstructures.LeapYear(2004))
-	time.Sleep(time.Second)
-	fmt.Println(controlstructures.LeapYear(3000))
+	compositedatatypes.TestArrayInitialization()
+	compositedatatypes.TestMatrix()
+	fmt.Println(functionsintro.Div(5, 2))
 }

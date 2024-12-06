@@ -4,12 +4,14 @@ import (
 	"fmt"
 )
 
+// User type with name email and ID
 type User struct {
 	Name  string
 	Email string
-	Id    int
+	ID    int
 }
 
+// Users dictionary of ID with users pointers
 type Users map[int]*User
 
 // Write implements io.Writer.

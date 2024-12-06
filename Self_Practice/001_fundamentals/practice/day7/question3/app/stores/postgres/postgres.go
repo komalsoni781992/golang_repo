@@ -16,10 +16,12 @@ In mysql.go create a Conn struct which stores db connection in string form
 	In postgres.go repeat the same steps as we did in mysql.go
 */
 
+// PostgresConn - struct for postgres connection
 type PostgresConn struct {
 	dbConnection string
 }
 
+// NewPostgresConnection - creates new postgres connection
 func NewPostgresConnection(conn string) PostgresConn {
 	if conn == "" {
 		log.Fatal("empty connection string")
@@ -27,16 +29,19 @@ func NewPostgresConnection(conn string) PostgresConn {
 	return PostgresConn{dbConnection: conn}
 }
 
+// Create - creates user
 func (c PostgresConn) Create(u stores.User) error {
 	fmt.Println("Creating user: ", u, " over connection", c)
 	return nil
 }
 
+// Update - updates user
 func (c PostgresConn) Update(u stores.User) error {
 	fmt.Println("Updating user: ", u, " over connection", c)
 	return nil
 }
 
+// Delete - deletes user
 func (c PostgresConn) Delete(id int) error {
 	fmt.Println("Deleting user with id: ", id, " over connection", c)
 	return nil

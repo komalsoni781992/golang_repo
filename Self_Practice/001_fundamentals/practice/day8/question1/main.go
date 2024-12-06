@@ -10,15 +10,16 @@ import (
 /*Call postgres and mysql package methods using interface variable*/
 
 func main() {
-	mysqlConnection := mysql.NewMySqlConnection("Mysql")
+	mysqlConnection := mysql.NewMySQLConnection("Mysql")
 	postgresConnection := postgres.NewMyPostgresConnection("Postgres")
 	TestDBMethods(mysqlConnection)
 	TestDBMethods(postgresConnection)
 }
 
+// TestDBMethods - tests db methods
 func TestDBMethods(r stores.DBConnection) {
-	user := stores.User{Name: "Komal", Email: "soni.komal@gmail.com", Id: 7}
-	user2 := stores.User{Name: "Soni", Email: "soni.komal@gmail.com", Id: 1}
+	user := stores.User{Name: "Komal", Email: "soni.komal@gmail.com", ID: 7}
+	user2 := stores.User{Name: "Soni", Email: "soni.komal@gmail.com", ID: 1}
 	if result := r.Create(user); result {
 		fmt.Println("User created successfully.")
 	}
@@ -31,7 +32,7 @@ func TestDBMethods(r stores.DBConnection) {
 	if result := r.Delete(1); result {
 		fmt.Println("User deleted successfully.")
 	}
-	if f, ok := r.(mysql.MySqlConn); ok {
+	if f, ok := r.(mysql.MySQLConn); ok {
 		p := f.FetchUser(7)
 		fmt.Println(p)
 		fmt.Println("Printing all usesr:")
