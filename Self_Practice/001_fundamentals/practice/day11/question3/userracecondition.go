@@ -1,12 +1,13 @@
 package main
 
+// create a data-race for the map and detect with race detector
+
 import (
 	"fmt"
 	"strconv"
 	"sync"
 )
 
-// create a data-race for the map and detect with race detector
 var user map[int]string = make(map[int]string, 5)
 
 func main() {
@@ -21,8 +22,8 @@ func main() {
 
 func updateUser(key int, val string, wg *sync.WaitGroup, m *sync.Mutex) {
 	defer wg.Done()
-	m.Lock()
-	defer m.Unlock() // releasing the lock
+	//m.Lock()
+	//defer m.Unlock()
 	user[key] = val
 	fmt.Println(user[key])
 }
