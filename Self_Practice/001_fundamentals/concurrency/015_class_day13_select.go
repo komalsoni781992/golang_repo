@@ -13,9 +13,9 @@ func TestSelect() {
 	wg := new(sync.WaitGroup)
 
 	// select is used when we want to listen or send values to over a multiple channel
-	get := make(chan string)
-	post := make(chan string)
-	put := make(chan string)
+	get := make(chan string, 1)
+	post := make(chan string, 1)
+	put := make(chan string, 2)
 
 	// empty struct doesn't take any memory
 	done := make(chan struct{}) // datatype doesn't matter
@@ -66,6 +66,14 @@ func TestSelect() {
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
+		wgWorker.Wait()
+		close(done) // close is a send signal, and select can recv it
+	}()
+	time.Sleep(3 * time.Second)
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		//time.Sleep(5 * time.Second)
 		for {
 			select {
 			case g := <-get:
@@ -82,11 +90,5 @@ func TestSelect() {
 		}
 	}()
 
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
-		wgWorker.Wait()
-		close(done) // close is a send signal, and select can recv it
-	}()
 	wg.Wait()
 }
