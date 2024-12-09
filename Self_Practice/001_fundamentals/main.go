@@ -3,5 +3,5 @@ package main
 import "fundamentals/concurrency"
 
 func main() {
-	concurrency.TestHttp()
+	concurrency.TestSelect()
 }
